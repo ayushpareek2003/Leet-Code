@@ -1,0 +1,23 @@
+//code by ayush pareek for question number 226 on leetcode cpp
+class Solution {
+public:
+    TreeNode* solve(TreeNode* in){
+        TreeNode* ret=new TreeNode();
+        ret->val=in->val;
+        if(in->right!=NULL){
+            ret->left=solve(in->right);
+
+        }
+        if(in->left!=NULL){
+            ret->right=solve(in->left);
+
+        }        
+        return ret;
+    }
+    TreeNode* invertTree(TreeNode* root) {
+        if(root==NULL){
+            return NULL;
+        }
+        return solve(root);        
+    }
+};
