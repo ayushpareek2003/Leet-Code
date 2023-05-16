@@ -1,0 +1,25 @@
+//code by ayush pareek,question-> 24. Swap Nodes in Pairs solved in cpp
+class Solution {
+public:
+    ListNode* swap(ListNode* p){
+        if(p==NULL||p->next==NULL){
+            return p;
+        }
+        ListNode* temp=p->next->next;
+        p->next->next=NULL;
+        ListNode* t=p;
+        p=p->next;
+        p->next=t;
+        t->next=swap(temp);
+
+        return p;
+    }
+    ListNode* swapPairs(ListNode* head) {
+        if(head!=NULL&&head->next!=NULL){
+            return swap(head);
+
+        }
+        return head;
+                
+    }
+};
