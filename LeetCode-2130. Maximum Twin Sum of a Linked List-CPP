@@ -1,0 +1,42 @@
+//2130. Maximum Twin Sum of a Linked List
+//code by ayush pareek in cpp 
+//i used a stack 
+class Solution {
+public:
+    int pairSum(ListNode* head) {
+        if(head->next->next==NULL){
+
+            return head->val+head->next->val;
+        }
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+        stack<int> arr;
+        
+        while(fast->next!=NULL&&fast!=NULL&&fast->next->next!=NULL){
+            
+            
+            arr.push(slow->val);
+           
+            slow=slow->next; 
+            fast=fast->next->next;
+
+            
+        }
+        arr.push(slow->val);
+        slow=slow->next;
+        int sum=0;
+        while(slow!=NULL){
+            if(sum<arr.top()+slow->val){
+                sum=arr.top()+slow->val;
+            }
+            
+            arr.pop();
+            slow=slow->next;
+
+        }
+
+        
+        return sum;
+        
+    }
+};
