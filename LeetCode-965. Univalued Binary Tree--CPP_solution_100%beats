@@ -1,0 +1,28 @@
+//code by ayush pareek for Univalued Binary Tree in cpp with 100%beats
+
+
+class Solution {
+public:
+vector<int> l;
+    void check(TreeNode* p){
+        if(p!=NULL){
+            l.push_back(p->val);
+            check(p->left);
+            check(p->right);
+        }
+
+
+    }
+    bool isUnivalTree(TreeNode* root) {
+        check(root);
+        sort(l.begin(),l.end());
+       
+        if(l[0]==l[l.size()-1]){
+            return true;
+        }
+        
+        return false;
+        
+    }
+
+};
