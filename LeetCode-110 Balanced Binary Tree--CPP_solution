@@ -1,0 +1,45 @@
+//code by ayush pareek for Balanced Binary Tree in cpp 
+
+
+class Solution {
+public:
+    int height(TreeNode* s){
+        if(s==NULL){
+            return -1;
+        }
+        int l=0;
+        int r=0;
+        if(s->left!=NULL){
+            
+            l++;
+            l+=height(s->left);
+        }
+        if(s->right!=NULL){
+            
+            r++;
+            r+=height(s->right);
+
+        }
+        return l>r?l:r;
+
+    }
+    bool check(TreeNode* s){
+        bool ret=false;
+        if(s==NULL){
+            return true;
+        }
+        int l=height(s->left);
+        int r=height(s->right);
+        if((0<=l-r&&l-r<=1)||(0<=r-l&&r-l<=1)){
+            ret=check(s->left)&&check(s->right);         
+        }
+        else{
+            return false;
+        }
+        return ret;
+
+    }
+    bool isBalanced(TreeNode* root) {     
+        return check(root);        
+    }
+};
