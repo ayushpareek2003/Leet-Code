@@ -1,0 +1,45 @@
+//solution by ayush pareek for q-101. Symmetric Tree on LeetCode 
+
+class Solution {
+public:
+    bool check(TreeNode* Left,TreeNode* Right){
+        bool lef=true;
+        bool rig=true;
+        if(Left!=NULL&&Right!=NULL){
+            if(Left->val!=Right->val){
+                return false;
+        }
+        }
+        else if(Left!=NULL||Right!=NULL){
+            return false;
+        }
+        
+        if((Left->left!=NULL&&Right->right!=NULL)){
+            lef=check(Left->left,Right->right);
+        }
+        else if(Left->left!=NULL||Right->right!=NULL){
+            return false;
+        }
+        if(Left->right!=NULL&&Right->left!=NULL){
+            rig=check(Left->right,Right->left);
+        }
+        else if(Left->right!=NULL||Right->left!=NULL){
+            return false;
+        }
+        
+        
+        return lef&&rig;
+    }
+    bool isSymmetric(TreeNode* root) {
+        if(root->left==NULL&&root->right==NULL){
+            return true;
+
+        }
+        else if(root->left==NULL||root->right==NULL){
+            return false;
+        }
+        return check(root->left,root->right);
+
+        
+    }
+};
