@@ -1,0 +1,45 @@
+//code by ayush pareek for Leetcode q.no 61 Rotate List in cpp
+
+class Solution {
+public:
+ListNode* rotateRight(ListNode* head, int k) {
+        if(k==0||head==NULL){
+            return head;
+        }
+        int len=1;
+        ListNode* temp =head;
+        ListNode* temp1 =head;
+     
+        while(temp->next!=NULL){
+            len++;
+            temp=temp->next;
+        }
+        if(k>=len){
+            k=k%len;
+        }
+   
+
+        int p=0;
+        while(len-k-1>p){
+                temp1=temp1->next;
+                p++;
+                
+        }
+        temp =temp1->next;
+        temp1->next=NULL;
+
+
+        ListNode *ex=temp;
+        if(ex!=NULL){
+                    while(ex->next!=NULL){
+            ex=ex->next;
+            
+        }
+        ex->next=head;
+        head=temp;
+
+        }
+        return head;            
+    }
+
+};
