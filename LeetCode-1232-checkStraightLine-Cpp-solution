@@ -1,0 +1,25 @@
+//code by ayush pareek on LeetCode for Q.no 1232 checkStraightLine in cpp
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        
+        bool ret=true;
+        double s1=(coordinates[1][1]-coordinates[0][1]);
+        double s2=(coordinates[1][0]-coordinates[0][0]);
+
+
+        for(int y=0;y<coordinates.size()-1;y++){
+            double t1=coordinates[y+1][1]-coordinates[y][1];
+            double t2=coordinates[y+1][0]-coordinates[y][0];
+
+     
+            if(s1*t2!=s2*t1){
+                return false;
+            }
+        }
+
+        return ret;
+        
+        
+    }
+};
