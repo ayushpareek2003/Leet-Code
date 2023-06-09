@@ -1,0 +1,25 @@
+// code by ayush pareek on Leetcode q.no 99 Recover a binary Treee in cpp
+
+class Solution {
+public:
+    void recoverUtilBST(TreeNode* root, TreeNode* &first, TreeNode* &second, TreeNode* &prev){
+        if (!root) return;
+        recoverUtilBST(root->left, first, second, prev);
+        if (prev && prev->val > root->val) {
+            if (!first) first = prev;
+            second = root;
+        }
+        prev = root;
+        recoverUtilBST(root->right, first, second, prev);
+    }
+    void recoverTree(TreeNode* root) {
+        TreeNode* first= NULL;
+        TreeNode* second = NULL;
+        TreeNode* prev = NULL;
+        recoverUtilBST(root, first, second, prev);
+        if(first && second){
+            swap(first->val, second->val);
+        }
+    }
+
+};
