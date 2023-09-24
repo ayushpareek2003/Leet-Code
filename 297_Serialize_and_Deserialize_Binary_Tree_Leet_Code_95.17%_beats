@@ -1,0 +1,142 @@
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(root==NULL){
+            return "";
+        }
+        string ret="";
+        queue<TreeNode*> st;
+        st.push(root);
+        while(!st.empty()){
+            queue<TreeNode*> t;
+            while(!st.empty()){
+                if(st.front()!=NULL){
+                    int ty=st.front()->val;
+                    if(ty<0){
+                        ret+='-';
+                        ty=abs(ty);
+                        
+                    }
+                    string ad="";
+                    while(ty>0){
+                        ad=to_string(ty%10)+ad;
+                        ty=ty/10;
+                    }
+
+                ret.append(ad);
+                ret.append(",");
+                }
+                else{
+                    ret.append("N");
+                    ret.append(",");
+                }
+                if(st.front()!=NULL){
+                    t.push(st.front()->left);
+
+                }
+                if(st.front()!=NULL){
+                    t.push(st.front()->right);
+                }
+                st.pop();
+
+            }
+            st=t;
+            ret+='/';
+        }
+        return ret;
+
+        
+    }
+
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        if(data==""){
+            return NULL;
+        }
+        int i=0;
+        int check=0;
+        int num=0;
+        if(data[i]=='-'){
+                        check=1;
+                        i++;
+                    }
+        while(data[i]!=','){
+                        num=num*10;
+                        num+=(data[i]-'0');
+                        i++;
+
+        }
+        if(check==1){
+            num*=-1;
+        }
+        TreeNode* ret=new TreeNode(num);
+        i+=2;
+        
+        queue<TreeNode*> m;
+        m.push(ret);
+        while(i<data.length()){
+            queue<TreeNode*> in;
+            while(!m.empty()&&data[i]!='/'){
+                if(data[i]!='N'){
+                    int check=0;
+                    int num=0;
+                    if(data[i]=='-'){
+                        check=1;
+                        i++;
+                    }
+                    while(data[i]!=','){
+                        num=num*10;
+                        num+=(data[i]-'0');
+                        i++;
+
+                    }
+                    if(check==1){
+                        num*=-1;
+                    }
+                
+                    m.front()->left=new TreeNode(num);
+                    in.push(m.front()->left);
+
+                }
+                else{
+                    i+=1;
+                }
+                i+=1;
+                if(data[i]!='N'&&data[i]!='/'){
+                    int check=0;
+                    int num=0;
+                    if(data[i]=='-'){
+                        check=1;
+                        i++;
+                    }
+                    while(data[i]!=','){
+                        num=num*10;
+                        num+=(data[i]-'0');
+                        i++;
+
+                    }
+                    if(check==1){
+                        num*=-1;
+                    }
+
+                    m.front()->right=new TreeNode(num);
+                    in.push(m.front()->right);
+
+                }
+                else{
+                    i+=1;
+                }
+            
+                m.pop();
+                i+=1;
+            }
+            i++;
+            m=in;
+        }
+        return ret;
+        
+    }
+};
